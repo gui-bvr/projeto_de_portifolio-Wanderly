@@ -4,24 +4,37 @@ import 'package:get/get.dart';
 import 'package:wanderly/services/auth_controller.dart';
 import 'package:wanderly/utils/colors.dart';
 
-class LoginController extends GetxController {
+class SignupController extends GetxController {
   var isLoading = false.obs;
+  final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
 
   final AuthController _authService = AuthController();
 
-  Future<void> login() async {
+  Future<void> signup() async {
+    if (passwordController.text != confirmPasswordController.text) {
+      Get.snackbar("Erro", "As senhas não coincidem.",
+          backgroundColor: Colors.red, colorText: Colors.white);
+      return;
+    }
+
     isLoading.value = true;
-    _authService.login(emailController.text, passwordController.text);
+    _authService.register(
+      nameController.text,
+      emailController.text,
+      passwordController.text,
+    );
     isLoading.value = false;
   }
 }
 
-class LoginScreen extends StatelessWidget {
-  final LoginController controller = Get.put(LoginController());
+class SignupScreen extends StatelessWidget {
+  final SignupController controller = Get.put(SignupController());
 
-  LoginScreen({super.key});
+  SignupScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +52,7 @@ class LoginScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Text(
-                'Bem Vindo!',
+                'Cadastro',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontFamily: 'Montserrat',
@@ -49,16 +62,9 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 20),
-              Text(
-                'Entre com seu email e senha para continuar!',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontFamily: 'Montserrat',
-                    color: Colors.white,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 15),
-              ),
-              SizedBox(height: 100),
+              _buildTextField(
+                  controller.nameController, Ionicons.person, 'Nome'),
+              SizedBox(height: 20),
               _buildTextField(
                   controller.emailController, Ionicons.mail, 'Email'),
               SizedBox(height: 20),
@@ -66,6 +72,13 @@ class LoginScreen extends StatelessWidget {
                 controller.passwordController,
                 Ionicons.lock_closed,
                 'Senha',
+                isObscure: true,
+              ),
+              SizedBox(height: 20),
+              _buildTextField(
+                controller.confirmPasswordController,
+                Ionicons.lock_closed,
+                'Confirmar Senha',
                 isObscure: true,
               ),
               SizedBox(height: 30),
@@ -79,24 +92,20 @@ class LoginScreen extends StatelessWidget {
                   ),
                   child: MaterialButton(
                     onPressed:
-                        controller.isLoading.value ? null : controller.login,
+                        controller.isLoading.value ? null : controller.signup,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: controller.isLoading.value
                         ? CircularProgressIndicator(color: Colors.white)
                         : Text(
-                            'Login',
+                            'Cadastrar',
                             style: TextStyle(color: Colors.white, fontSize: 16),
                           ),
                   ),
                 ),
               ),
               SizedBox(height: 70),
-              _registerLine(),
-              SizedBox(height: 25),
-              _forgottenPassword(),
-              SizedBox(height: 100),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: _buildFooterLogo(),
@@ -105,59 +114,6 @@ class LoginScreen extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-
-  Widget _registerLine() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          'Registre-se ',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 16,
-            fontFamily: 'Montserrat',
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        GestureDetector(
-          onTap: () {
-            Get.toNamed('register');
-          },
-          child: Text(
-            'aqui',
-            style: TextStyle(
-              color: Colors.blue,
-              fontSize: 16,
-              fontFamily: 'Montserrat',
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _forgottenPassword() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        GestureDetector(
-          onTap: () {
-            Get.toNamed('register');
-          },
-          child: Text(
-            'Esqueci minha Senha',
-            style: TextStyle(
-              color: Colors.blue,
-              fontSize: 16,
-              fontFamily: 'Montserrat',
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ),
-      ],
     );
   }
 

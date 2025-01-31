@@ -108,7 +108,7 @@ class AuthController extends GetxController {
     }
   }
 
-  void register(String email, String password) async {
+  void register(String email, String password, String text) async {
     try {
       await auth.createUserWithEmailAndPassword(
           email: email, password: password);
