@@ -48,7 +48,7 @@ class LoginScreen extends StatelessWidget {
               ),
               SizedBox(height: 20),
               Text(
-                'Enter your email and password below to continue to The Growing Developer!',
+                'Digite seu email e senha para continuar!',
                 textAlign: TextAlign.center,
                 style: GoogleFonts.openSans(color: Colors.white, fontSize: 14),
               ),
