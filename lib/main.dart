@@ -11,9 +11,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'TGD App',
+      title: 'Wanderly',
       theme: ThemeData.dark(),
-      home: SplashScreen(), // Chamando a SplashScreen
+      home: SplashScreen(),
     );
   }
 }

@@ -16,13 +16,13 @@ class SplashScreen extends StatelessWidget {
           ),
           SizedBox(height: 20),
           Text(
-            'Welcome to TGD!',
+            'Bem vindo ao Wanderly!',
             textAlign: TextAlign.center,
             style: TextStyle(color: Colors.white, fontSize: 28),
           ),
           SizedBox(height: 20),
           Text(
-            'A one-stop portal for you to learn the latest technologies from SCRATCH',
+            'Um aplicativo de geração de roteiros de viagem personalizados, utilizando inteligência artificial para criar experiências únicas e adaptadas ao perfil de cada viajante.',
             textAlign: TextAlign.center,
             style: TextStyle(color: Colors.white, fontSize: 16),
           ),
@@ -37,8 +37,7 @@ class SplashScreen extends StatelessWidget {
           //           child: Row(
           //             mainAxisAlignment: MainAxisAlignment.center,
           //             children: <Widget>[
-          Text('Get Started',
-              style: TextStyle(color: Colors.white, fontSize: 20)),
+          Text('Iniciar', style: TextStyle(color: Colors.white, fontSize: 20)),
           Icon(Icons.arrow_forward_ios, color: Colors.white),
         ],
       ),
