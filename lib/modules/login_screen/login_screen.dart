@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:get/get.dart';
+import 'package:wanderly/services/auth_controller.dart';
 import 'package:wanderly/utils/colors.dart';
 
 class LoginController extends GetxController {
@@ -8,21 +9,19 @@ class LoginController extends GetxController {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  void login() {
+  final AuthController _authService = AuthController();
+
+  Future<void> login() async {
     isLoading.value = true;
-    Future.delayed(
-      Duration(seconds: 2),
-      () {
-        isLoading.value = false;
-        Get.snackbar("Success", "Login successful",
-            snackPosition: SnackPosition.BOTTOM);
-      },
-    );
+    _authService.login(emailController.text, passwordController.text);
+    isLoading.value = false;
   }
 }
 
 class LoginScreen extends StatelessWidget {
   final LoginController controller = Get.put(LoginController());
+
+  LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -64,8 +63,11 @@ class LoginScreen extends StatelessWidget {
                   controller.emailController, Ionicons.mail, 'Email'),
               SizedBox(height: 20),
               _buildTextField(
-                  controller.passwordController, Ionicons.lock_closed, 'Senha',
-                  isObscure: true),
+                controller.passwordController,
+                Ionicons.lock_closed,
+                'Senha',
+                isObscure: true,
+              ),
               SizedBox(height: 30),
               Obx(
                 () => Container(
