@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:wanderly/utils/colors.dart';
 
 class LoginController extends GetxController {
   var isLoading = false.obs;
@@ -10,30 +10,28 @@ class LoginController extends GetxController {
 
   void login() {
     isLoading.value = true;
-    Future.delayed(Duration(seconds: 2), () {
-      isLoading.value = false;
-      Get.snackbar("Success", "Login successful",
-          snackPosition: SnackPosition.BOTTOM);
-    });
+    Future.delayed(
+      Duration(seconds: 2),
+      () {
+        isLoading.value = false;
+        Get.snackbar("Success", "Login successful",
+            snackPosition: SnackPosition.BOTTOM);
+      },
+    );
   }
 }
 
 class LoginScreen extends StatelessWidget {
   final LoginController controller = Get.put(LoginController());
-  final Color primaryColor = Color(0xff18203d);
-  final Color secondaryColor = Color(0xff232c51);
-  final Color logoGreen = Color(0xff25bcbb);
-
-  LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        elevation: 0,
+        elevation: 1,
       ),
-      backgroundColor: primaryColor,
+      backgroundColor: secondaryColor,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 30),
         child: SingleChildScrollView(
@@ -44,57 +42,59 @@ class LoginScreen extends StatelessWidget {
               Text(
                 'Bem Vindo!',
                 textAlign: TextAlign.center,
-                style: GoogleFonts.openSans(color: Colors.white, fontSize: 28),
+                style: TextStyle(
+                  fontFamily: 'Montserrat',
+                  color: Colors.white,
+                  fontSize: 35,
+                  fontWeight: FontWeight.w800,
+                ),
               ),
               SizedBox(height: 20),
               Text(
-                'Digite seu email e senha para continuar!',
+                'Entre com seu email e senha para continuar!',
                 textAlign: TextAlign.center,
-                style: GoogleFonts.openSans(color: Colors.white, fontSize: 14),
-              ),
-              SizedBox(height: 50),
-              _buildTextField(
-                  controller.emailController, Icons.account_circle, 'Email'),
-              SizedBox(height: 20),
-              _buildTextField(
-                  controller.passwordController, Icons.lock, 'Password',
-                  isObscure: true),
-              SizedBox(height: 30),
-              Obx(() => MaterialButton(
-                    elevation: 0,
-                    minWidth: double.maxFinite,
-                    height: 50,
-                    onPressed:
-                        controller.isLoading.value ? null : controller.login,
-                    color: logoGreen,
-                    child: controller.isLoading.value
-                        ? CircularProgressIndicator(color: Colors.white)
-                        : Text('Login',
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 16)),
-                    textColor: Colors.white,
-                  )),
-              SizedBox(height: 20),
-              MaterialButton(
-                elevation: 0,
-                minWidth: double.maxFinite,
-                height: 50,
-                onPressed: () {},
-                color: Colors.blue,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(FontAwesomeIcons.google, color: Colors.white),
-                    SizedBox(width: 10),
-                    Text('Sign-in using Google',
-                        style: TextStyle(color: Colors.white, fontSize: 16)),
-                  ],
-                ),
-                textColor: Colors.white,
+                style: TextStyle(
+                    fontFamily: 'Montserrat',
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 15),
               ),
               SizedBox(height: 100),
+              _buildTextField(
+                  controller.emailController, Ionicons.mail, 'Email'),
+              SizedBox(height: 20),
+              _buildTextField(
+                  controller.passwordController, Ionicons.lock_closed, 'Senha',
+                  isObscure: true),
+              SizedBox(height: 30),
+              Obx(
+                () => Container(
+                  width: double.infinity,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: quinaryColor,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: MaterialButton(
+                    onPressed:
+                        controller.isLoading.value ? null : controller.login,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: controller.isLoading.value
+                        ? CircularProgressIndicator(color: Colors.white)
+                        : Text(
+                            'Login',
+                            style: TextStyle(color: Colors.white, fontSize: 16),
+                          ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 150),
               Align(
-                  alignment: Alignment.bottomCenter, child: _buildFooterLogo()),
+                alignment: Alignment.bottomCenter,
+                child: _buildFooterLogo(),
+              ),
             ],
           ),
         ),
@@ -106,12 +106,31 @@ class LoginScreen extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Image.asset('assets/tgd_white.png', height: 40),
+        Container(
+          margin: const EdgeInsets.only(right: 15),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(color: Colors.white, width: 2),
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(50),
+            child: Image.asset(
+              'assets/logo/logo.jpg',
+              height: 100,
+              width: 100,
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
         Text(
-          'The Growing Developer',
+          'Wanderly',
           textAlign: TextAlign.center,
-          style: GoogleFonts.openSans(
-              color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            fontFamily: 'Montserrat',
+            color: Colors.white,
+            fontSize: 40,
+            fontWeight: FontWeight.w800,
+          ),
         ),
       ],
     );
@@ -123,7 +142,13 @@ class LoginScreen extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       decoration: BoxDecoration(
-          color: secondaryColor, border: Border.all(color: Colors.blue)),
+        color: secondaryColor,
+        border: Border.all(
+          color: quaternaryColor,
+          width: 3,
+        ),
+        borderRadius: BorderRadius.circular(10),
+      ),
       child: TextField(
         controller: controller,
         obscureText: isObscure,
