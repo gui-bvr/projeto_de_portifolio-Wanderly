@@ -47,7 +47,7 @@ class AuthController extends GetxController {
         titleText: Text(
           'Erro ao Recuperar',
           style: TextStyle(
-            color: primaryColor,
+            color: primaryGreyColor,
             fontSize: 12,
             fontFamily: 'Montserrat',
             fontWeight: FontWeight.w700,
@@ -56,7 +56,7 @@ class AuthController extends GetxController {
         messageText: Text(
           'Digite um email válido!',
           style: TextStyle(
-            color: primaryColor,
+            color: primaryGreyColor,
             fontSize: 11,
             fontFamily: 'Montserrat',
             fontWeight: FontWeight.w400,
@@ -64,12 +64,12 @@ class AuthController extends GetxController {
         ),
         icon: Icon(
           Ionicons.close_circle_outline,
-          color: primaryColor,
+          color: primaryGreyColor,
           size: 25,
         ),
         margin: EdgeInsets.all(20),
         borderRadius: 10,
-        backgroundColor: primaryColor,
+        backgroundColor: secondaryGreyColor,
         duration: Duration(seconds: 3),
         snackPosition: SnackPosition.BOTTOM,
       );
@@ -79,7 +79,7 @@ class AuthController extends GetxController {
         titleText: Text(
           'Email enviado',
           style: TextStyle(
-            color: primaryColor,
+            color: primaryGreyColor,
             fontSize: 12,
             fontFamily: 'Montserrat',
             fontWeight: FontWeight.w700,
@@ -88,7 +88,7 @@ class AuthController extends GetxController {
         messageText: Text(
           'Um email foi enviado para recuperar sua senha!',
           style: TextStyle(
-            color: primaryColor,
+            color: primaryGreyColor,
             fontSize: 11,
             fontFamily: 'Montserrat',
             fontWeight: FontWeight.w400,
@@ -96,12 +96,12 @@ class AuthController extends GetxController {
         ),
         icon: Icon(
           Ionicons.mail,
-          color: primaryColor,
+          color: primaryGreyColor,
           size: 25,
         ),
         margin: EdgeInsets.all(20),
         borderRadius: 10,
-        backgroundColor: primaryColor,
+        backgroundColor: secondaryGreyColor,
         duration: Duration(seconds: 3),
         snackPosition: SnackPosition.BOTTOM,
       );
@@ -118,7 +118,7 @@ class AuthController extends GetxController {
         titleText: Text(
           'Erro ao Registrar',
           style: TextStyle(
-            color: primaryColor,
+            color: primaryGreyColor,
             fontSize: 12,
             fontFamily: 'Montserrat',
             fontWeight: FontWeight.w700,
@@ -127,7 +127,7 @@ class AuthController extends GetxController {
         messageText: Text(
           'Digite um email ou senha válidos!',
           style: TextStyle(
-            color: primaryColor,
+            color: primaryGreyColor,
             fontSize: 11,
             fontFamily: 'Montserrat',
             fontWeight: FontWeight.w400,
@@ -135,12 +135,12 @@ class AuthController extends GetxController {
         ),
         icon: Icon(
           Ionicons.close_circle_outline,
-          color: primaryColor,
+          color: primaryGreyColor,
           size: 25,
         ),
         margin: EdgeInsets.all(20),
         borderRadius: 10,
-        backgroundColor: primaryColor,
+        backgroundColor: secondaryGreyColor,
         duration: Duration(seconds: 3),
         snackPosition: SnackPosition.BOTTOM,
       );
